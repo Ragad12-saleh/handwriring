@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام فهم خط اليد</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #87CEEB; /* أزرق سماوي */
+            color: #333;
+            padding: 20px;
+        }
+        video, canvas {
+            border: 2px solid black;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        #capture {
+            background-color: #FF69B4; /* زهري */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #capture:hover {
+            background-color: #ff1493;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>نظام فهم خط اليد باستخدام الكاميرا</h1>
+    <video id="video" width="400" height="300" autoplay></video>
+    <br>
+    <button id="capture">التقاط الصورة</button>
+    <br>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <p>النص المستخرج:</p>
+    <p id="output"></p>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const captureBtn = document.getElementById('capture');
+        const output = document.getElementById('output');
+
+        // تشغيل الكاميرا
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("خطأ في الوصول إلى الكاميرا: ", err);
+            });
+
+        // التقاط الصورة من الفيديو
+        captureBtn.addEventListener('click', () => {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // محاكاة التعرف على النص (يجب دمجه مع OCR لاحقًا)
+          
+        });
+    </script>
+</body>
+</html>
